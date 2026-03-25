@@ -59,13 +59,31 @@ def get_symbol():
 # ------------------------------
 # GET CHART TYPE AND VERIFY
 # ------------------------------
+def get_chart_type():
+    #Chart types and respective numbers for user selection
+    chart_types = {
+        "1": "Bar",
+        "2": "Line"
+    }
 
+    #user input for chart type and validation
+    while True:
+        print("\nChart Types:\n----------------\n1. Bar\n2. Line\n")
+        chart_type = input("Enter chart type you want (1, 2): ")
+        if not chart_type in ["1", "2"]:
+            print("Invalid chart type. Please enter 1 or 2.\n")
+            continue
+
+        break
+
+    #return the selected chart type
+    return chart_types[chart_type]
 
 
 
 
 # -------------------------------------
-# GET TIME SERIES FUNCTION  AND VERIFY
+# GET TIME SERIES FUNCTION AND VERIFY
 # -------------------------------------
 
 
@@ -103,6 +121,8 @@ def get_symbol():
 def main():
     symbol = get_symbol()
     print(symbol)
+    chart_type = get_chart_type()
+    print(chart_type)
     
 
 
