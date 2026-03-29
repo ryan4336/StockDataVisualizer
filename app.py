@@ -1,6 +1,6 @@
 #import necessary modules
 import requests
-
+from datetime import datetime
 
 
 API_KEY = "XAUMT7K9CR2S8LVB"
@@ -85,15 +85,53 @@ def get_chart_type():
 # -------------------------------------
 # GET TIME SERIES FUNCTION AND VERIFY
 # -------------------------------------
+def get_time_series():
+    # Time series options and their Alpha Vantage APU function names
+    time_series_options = {
+        "1": ("Intraday", "TIME_SERIES_INTRADAY"),
+        "2": ("Daily", "TIME_SERIES_DAILY"),
+        "3": ("Weekly", "TIME_SERIES_WEEKLY"),
+        "4": ("Monthly", "TIME_SERIES_MONTHLY")
+    }
+    while True:
+        print("\nTime Series Functions:\n----------------")
+        for key, (label, _) in time_series_options.items():
+            print(f"{key}. {label}")
+        print()
 
-
-
+        choice = input("Enter the time series function you want (1-4): ")
+        if choice not in time_series_options:
+            print("Invalid choice. Choose a number between 1 and 4.\n")
+            continue
+        label, api_function = time_series_options[choice]
+        print(f"Time series '{label}' selected.")
+        return api_function
 
 
 # -------------------------------------
 # GET START AND END DATE AND VERIFY
 # -------------------------------------
 
+def get_date_range():
+    date_format = "%Y-%m-%d"
+
+    def parse_date(date):
+        while True:
+            date_str = input(date).strip()
+            try:
+                return datetime.strptime(date_str, date_format)
+            except ValueError:
+                print("Invalid date format. Use YYYY-MM-DD.\n")
+    while True:
+        start_date = parse_date("Enter the start date (YYYY-MM-DD): ")
+        end_date = parse_date("Enter the end date (YYYY-MM-DD): ")
+
+        if end_date < start_date:
+            print("ERROR: End date can not be before start date. Try again.\n")
+            continue
+
+        print(f"Date range set: {start_date.strftime(date_format)} to {end_date.strftime(date_format)}")
+        return start_date.strftime(date_format), end_date.strftime(date_format)
 
 
 
@@ -123,6 +161,10 @@ def main():
     print(symbol)
     chart_type = get_chart_type()
     print(chart_type)
+    time_series = get_time_series()
+    print(time_series)
+    start_date, end_date = get_date_range()
+    print(start_date, end_date)
     
 
 
