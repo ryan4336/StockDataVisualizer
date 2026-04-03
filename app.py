@@ -256,19 +256,26 @@ def generate_chart(stock_data, symbol, chart_type, start_date, end_date, time_se
 # MAIN PROGRAM
 # -----------------------------
 def main():
-    symbol = get_symbol()
-    chart_type = get_chart_type()
-    time_series = get_time_series()
-    start_date, end_date = get_date_range()
+    while True:
+        symbol = get_symbol()
+        chart_type = get_chart_type()
+        time_series = get_time_series()
+        start_date, end_date = get_date_range()
 
-    print("\nFetching stock data...")
-    stock_data, time_series_key = fetch_stock_data(symbol, time_series)
+        print("\nFetching stock data...")
+        stock_data, time_series_key = fetch_stock_data(symbol, time_series)
 
-    if stock_data is None:
-        print("Could not retrieve stock data. Exiting.")
-        return
+        if stock_data is None:
+            print("Could not retrieve stock data. Exiting.")
+            return
 
-    generate_chart(stock_data, symbol, chart_type, start_date, end_date, time_series_key)
+        generate_chart(stock_data, symbol, chart_type, start_date, end_date, time_series_key)
+        
+        yn = input("\nWould you like to visualize another stock? (y/n): ")
+        
+        if yn != "y":
+            print("Goodbye!")
+            break
 
 
 if __name__ == "__main__":

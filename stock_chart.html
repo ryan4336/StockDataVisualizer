@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AAPL Stock Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+        h1 { color: #333; }
+        p { color: #666; }
+        .chart-container {
+            width: 90vw;
+            max-width: 1100px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <h1>AAPL Closing Price</h1>
+    <p>2015-09-04 to 2016-09-04</p>
+    <div class="chart-container">
+        <canvas id="stockChart"></canvas>
+    </div>
+    <script>
+        const labels = ['2015-09-30', '2015-10-30', '2015-11-30', '2015-12-31', '2016-01-29', '2016-02-29', '2016-03-31', '2016-04-29', '2016-05-31', '2016-06-30', '2016-07-29', '2016-08-31'];
+        const values = [109.95, 119.5, 118.3, 105.26, 97.34, 96.69, 108.99, 93.74, 99.86, 95.6, 104.21, 106.1];
+        const ctx = document.getElementById('stockChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'AAPL Closing Price',
+                    data: values,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    pointRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: {
+                        display: true,
+                        text: 'AAPL Stock Price (2015-09-04 to 2016-09-04)'
+                    }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: 'Closing Price (USD)' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Date' },
+                        ticks: { maxTicksLimit: 20 }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
